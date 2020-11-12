@@ -1,3 +1,12 @@
+$(document).ready(function(){
+	 $('#table_user').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5'
+        ]
+    } );
+});
+
 function modal_save(){
 	$("#modal_save").modal("show");
 }
