@@ -65,7 +65,7 @@
                 </div>
                 <div class="text-center">
                   <button type="button" class="btn btn-primary my-4" onclick="Send()">Entrar</button>
-                  <button type="button" class="btn btn-primary my-4" onclick="modal_register()">Registrarse</button>
+                  <!-- <button type="button" class="btn btn-primary my-4" onclick="modal_register()">Registrarse</button> -->
                 </div>
               </form>
             </div>

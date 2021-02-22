@@ -1,10 +1,5 @@
 $(document).ready(function(){
-	 $('#table_pqr').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'csvHtml5', 'excelHtml5', 'pdfHtml5'
-        ]
-    } );
+	 $('#table_pqr').DataTable();
 });
 
 function modal_save(){

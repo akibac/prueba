@@ -33,11 +33,19 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="pqr.php">
                 <i class="ni ni-tv-2 text-primary"></i>
-                <span class="nav-link-text">Inicio</span>
+                <span class="nav-link-text">PQR</span>
               </a>
             </li>
+            <?php if ($_SESSION['type_user'] == 1) { ?>
+              <li class="nav-item">
+                <a class="nav-link active" href="list_users.php">
+                  <i class="ni ni-circle-08 text-primary"></i>
+                  <span class="nav-link-text">Usuarios</span>
+                </a>
+              </li>
+            <?php }; ?>
           </ul>
          <!-- Divider -->
           <hr class="my-3">

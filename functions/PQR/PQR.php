@@ -104,4 +104,5 @@ class PQR extends Conection{
 			echo json_encode("true");
 		}
 	}
+	
 }

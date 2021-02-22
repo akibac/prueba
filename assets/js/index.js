@@ -21,7 +21,6 @@ function save(){
 	        type: 'POST',
 	        data: {name:name,function:'save'},
 	        success: function(data){
-	        	console.log(data);
 	            var json = JSON.parse(data);
 	            if (json == "true") {
 	            	swal("OK", "", "success");

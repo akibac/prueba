@@ -34,67 +34,67 @@ $users2 = $testObject->Get_Users();
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
-			<table class="table align-items-center table-flush" id="table_pqr">
-			    <thead class="thead-light">
-			      <tr>
-			        <th scope="col">ID</th>
-			        <th scope="col">Tipo de PQR</th>
-			        <th scope="col">Usuario</th>
-			        <th scope="col">Estado</th>
-			        <th scope="col">Fecha creación</th>
-			        <th scope="col">Fecha Limite</th>
-			        <th scope="col">Acciones</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			    	<?php while($value = $data->fetch_object()){ ?>
-			    		<tr>
-			                <th scope="row">
-			                	<?= $value->id_pqr ?>
-			                </th>
-			                <td>
-			                  <?= utf8_encode($value->description) ?>
-			                </td>
-			                <td>
-			                	<?= $value->name ?>
-			                </td>
-			                <td>
-			                	<?php 
-			                	if ($value->date_limit < date("Y-m-d")) { ?>
-			                		<?= $value->state ?> <strong>(Vencido)</strong>
-			                	<?php }else{
-			                		echo $value->state;
-			                	}  ?>
-			                </td>
-			                <td>
-			                	<?= $value->date_create ?>
-			                </td>
-			                <td>
-			                	<?= $value->date_limit ?>
-			                </td>
-			                <td>
-			                	<?php if ($value->state == "Cerrado"){ ?>
-			                		El PQR se encuentra en estado <strong>Cerrado</strong>
-			                	<?php }else{ ?>
-				                	<button class="btn btn-icon btn-success" type="button" onclick="modal_update(<?=$value->id_pqr?>)">
-										<span class="btn-inner--icon"><i class="ni ni-zoom-split-in"></i></span>
-									    <span class="btn-inner--text">Editar datos</span>
-									</button>
-									<button class="btn btn-icon btn-primary" title="mostar asunto" type="button" onclick="show_subject(<?= $value->id_pqr ?>)">
-										<span class="btn-inner--icon"><i class="ni ni-zoom-split-in"></i></span>
-										<span class="btn-inner--text">Actualizar estado</span>
-									</button>
-									<button class="btn btn-icon btn-danger" type="button" onclick="delete_pqr(<?= $value->id_pqr ?>)">
-										<span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
-										<span class="btn-inner--text">Eliminar PQR</span>
-									</button>
-			                	<?php } ?>
-			                </td>
-			             </tr>
-			    	<?php } ?>
-			    </tbody>
-			</table>
+            <div class="table-responsive" id="content">
+				<table class="table align-items-center table-flush" id="table_pqr">
+				    <thead class="thead-light">
+				      <tr>
+				        <th scope="col">ID</th>
+				        <th scope="col">Tipo de PQR</th>
+				        <th scope="col">Usuario</th>
+				        <th scope="col">Estado</th>
+				        <th scope="col">Fecha creación</th>
+				        <th scope="col">Fecha Limite</th>
+				        <th scope="col">Acciones</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				    	<?php while($value = $data->fetch_object()){ ?>
+				    		<tr>
+				                <th scope="row">
+				                	<?= $value->id_pqr ?>
+				                </th>
+				                <td>
+				                  <?= utf8_encode($value->description) ?>
+				                </td>
+				                <td>
+				                	<?= $value->name ?>
+				                </td>
+				                <td>
+				                	<?php 
+				                	if ($value->date_limit < date("Y-m-d")) { ?>
+				                		<?= $value->state ?> <strong>(Vencido)</strong>
+				                	<?php }else{
+				                		echo $value->state;
+				                	}  ?>
+				                </td>
+				                <td>
+				                	<?= $value->date_create ?>
+				                </td>
+				                <td>
+				                	<?= $value->date_limit ?>
+				                </td>
+				                <td>
+				                	<?php if ($value->state == "Cerrado"){ ?>
+				                		El PQR se encuentra en estado <strong>Cerrado</strong>
+				                	<?php }else{ ?>
+					                	<button class="btn btn-icon btn-success" type="button" onclick="modal_update(<?=$value->id_pqr?>)">
+											<span class="btn-inner--icon"><i class="ni ni-zoom-split-in"></i></span>
+										    <span class="btn-inner--text">Editar datos</span>
+										</button>
+										<button class="btn btn-icon btn-primary" title="mostar asunto" type="button" onclick="show_subject(<?= $value->id_pqr ?>)">
+											<span class="btn-inner--icon"><i class="ni ni-zoom-split-in"></i></span>
+											<span class="btn-inner--text">Actualizar estado</span>
+										</button>
+										<button class="btn btn-icon btn-danger" type="button" onclick="delete_pqr(<?= $value->id_pqr ?>)">
+											<span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
+											<span class="btn-inner--text">Eliminar PQR</span>
+										</button>
+				                	<?php } ?>
+				                </td>
+				             </tr>
+				    	<?php } ?>
+				    </tbody>
+				</table>
             </div>
           </div>
         </div>

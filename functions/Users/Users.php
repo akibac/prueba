@@ -9,7 +9,13 @@ class Users extends Conection{
 	}
 
 	Function Get_Users(){
-		$sql = "SELECT * FROM users";
+		$sql = "SELECT u.*,t.description as type FROM users u INNER JOIN type_users t ON u.type_user = t.id_type";
+		$result = $this->mysqli->query($sql);
+		return $result;
+	}
+
+	function Get_Type_Users(){
+		$sql = "SELECT * FROM type_users";
 		$result = $this->mysqli->query($sql);
 		return $result;
 	}
@@ -18,6 +24,36 @@ class Users extends Conection{
 		$name = $_POST['name'];
 		$pass = password_hash(md5('07'.$_POST['pass']), PASSWORD_ARGON2ID);
 		if (!$this->mysqli->query("INSERT INTO users(name,password,type_user) VALUES ('".$name."','".$pass."','2')")) {
+		    echo json_encode("Falló la consulta: (" . $this->mysqli->errno . ") " . $this->mysqli->error);
+		}else{
+			echo json_encode("true");
+		}
+	}
+
+	function save_user(){
+		$name = $_POST['name'];
+		$pass = password_hash(md5('07'.$_POST['pass']), PASSWORD_ARGON2ID);
+		$type = $_POST['type'];
+		if (!$this->mysqli->query("INSERT INTO users(name,password,type_user,last_edit) VALUES ('".$name."','".$pass."','".$type."', '".$_POST['user_log']."')")) {
+		    echo json_encode("Falló la consulta: (" . $this->mysqli->errno . ") " . $this->mysqli->error);
+		}else{
+			echo json_encode("true");
+		}
+	}
+
+	function Get_User_ID(){
+		$id_users = $_POST['id_user'];
+		$sql = "SELECT * FROM users WHERE id_user = $id_users";
+		$result = $this->mysqli->query($sql);
+		return json_encode($result->fetch_assoc());
+	}
+
+	function update_user(){
+		$id_user = $_POST['id_user'];
+		$name = $_POST['name'];
+		$type = $_POST['type'];
+		$user_log = $_POST['user_log'];
+		if (!$this->mysqli->query("UPDATE users SET name = '".$name."', type_user = '".$type."', last_edit = '".$user_log."' WHERE id_user = '".$id_user."'")) {
 		    echo json_encode("Falló la consulta: (" . $this->mysqli->errno . ") " . $this->mysqli->error);
 		}else{
 			echo json_encode("true");

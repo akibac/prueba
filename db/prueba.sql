@@ -1,26 +1,24 @@
-/*
-SQLyog Professional v13.1.1 (64 bit)
-MySQL - 10.1.38-MariaDB : Database - prueba
-*********************************************************************
-*/
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         10.4.17-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             11.2.0.6213
+-- --------------------------------------------------------
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`prueba` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
 
+
+-- Volcando estructura de base de datos para prueba
+CREATE DATABASE IF NOT EXISTS `prueba` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
 USE `prueba`;
 
-/*Table structure for table `history` */
-
-DROP TABLE IF EXISTS `history`;
-
-CREATE TABLE `history` (
+-- Volcando estructura para tabla prueba.history
+CREATE TABLE IF NOT EXISTS `history` (
   `date` datetime DEFAULT NULL,
   `user_web` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `user_bd` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -28,66 +26,70 @@ CREATE TABLE `history` (
   `module` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-/*Data for the table `history` */
+-- Volcando datos para la tabla prueba.history: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+INSERT INTO `history` (`date`, `user_web`, `user_bd`, `action`, `module`) VALUES
+	('2021-02-22 15:09:09', '1', 'root@localhost', 'Insert', 'PQR'),
+	('2021-02-22 15:59:40', 'prueba', 'root@localhost', 'Insert', 'Users'),
+	('2021-02-22 16:56:46', 'prueba', 'root@localhost', 'Insert', 'Users'),
+	('2021-02-22 17:04:01', '1', 'root@localhost', 'Insert', 'PQR'),
+	('2021-02-22 17:04:56', '1', 'root@localhost', 'Update', 'PQR'),
+	('2021-02-22 17:05:48', '1', 'root@localhost', 'Update', 'PQR'),
+	('2021-02-22 17:22:39', 'prueba2', 'root@localhost', 'Insert', 'Users'),
+	('2021-02-22 17:44:35', 'prueba11', 'root@localhost', 'Insert', 'Users');
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
-/*Table structure for table `type_pqr` */
-
-DROP TABLE IF EXISTS `type_pqr`;
-
-CREATE TABLE `type_pqr` (
+-- Volcando estructura para tabla prueba.type_pqr
+CREATE TABLE IF NOT EXISTS `type_pqr` (
   `id_type` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-/*Data for the table `type_pqr` */
+-- Volcando datos para la tabla prueba.type_pqr: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `type_pqr` DISABLE KEYS */;
+INSERT INTO `type_pqr` (`id_type`, `description`) VALUES
+	(1, 'Peticion'),
+	(2, 'Queja'),
+	(3, 'Reclamo');
+/*!40000 ALTER TABLE `type_pqr` ENABLE KEYS */;
 
-insert  into `type_pqr`(`id_type`,`description`) values 
-(1,'Petición'),
-(2,'Queja'),
-(3,'Reclamo');
-
-/*Table structure for table `type_users` */
-
-DROP TABLE IF EXISTS `type_users`;
-
-CREATE TABLE `type_users` (
+-- Volcando estructura para tabla prueba.type_users
+CREATE TABLE IF NOT EXISTS `type_users` (
   `id_type` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-/*Data for the table `type_users` */
+-- Volcando datos para la tabla prueba.type_users: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `type_users` DISABLE KEYS */;
+INSERT INTO `type_users` (`id_type`, `description`) VALUES
+	(1, 'Admin'),
+	(2, 'standar');
+/*!40000 ALTER TABLE `type_users` ENABLE KEYS */;
 
-insert  into `type_users`(`id_type`,`description`) values 
-(1,'Admin'),
-(2,'standar');
-
-/*Table structure for table `users` */
-
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE `users` (
+-- Volcando estructura para tabla prueba.users
+CREATE TABLE IF NOT EXISTS `users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
   `password` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `type_user` int(11) DEFAULT NULL,
+  `last_edit` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   KEY `type_user` (`type_user`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`type_user`) REFERENCES `type_users` (`id_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-/*Data for the table `users` */
+-- Volcando datos para la tabla prueba.users: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id_user`, `name`, `password`, `type_user`, `last_edit`) VALUES
+	(1, 'admin', '$argon2id$v=19$m=1024,t=2,p=2$a1hGQ3JDUEsyTkw4Lmk1dg$xtUgl5ZfP6JTT/SpR4fMuq3/nhN0WyjmdcQ1DgrFCew', 1, NULL),
+	(2, 'estandar', '$argon2id$v=19$m=1024,t=2,p=2$Z0wvSUdaejNrSGEvUXI0NA$chv818VsYYD7wZm7PbTCRkPPc8AQdC872PUvsWhiEFU', 2, NULL),
+	(4, 'prueba', '$argon2id$v=19$m=65536,t=4,p=1$M0p4RVhGM25yQWZ1eUVpeg$T8VuAuCl7TpbiWBSkaJmR8svumxWtnpUHlxSofOKetc', 2, 1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
-insert  into `users`(`id_user`,`name`,`password`,`type_user`) values 
-(1,'admin','$argon2id$v=19$m=1024,t=2,p=2$a1hGQ3JDUEsyTkw4Lmk1dg$xtUgl5ZfP6JTT/SpR4fMuq3/nhN0WyjmdcQ1DgrFCew',1),
-(2,'estandar','$argon2id$v=19$m=1024,t=2,p=2$Z0wvSUdaejNrSGEvUXI0NA$chv818VsYYD7wZm7PbTCRkPPc8AQdC872PUvsWhiEFU',2);
-
-/*Table structure for table `users_pqr` */
-
-DROP TABLE IF EXISTS `users_pqr`;
-
-CREATE TABLE `users_pqr` (
+-- Volcando estructura para tabla prueba.users_pqr
+CREATE TABLE IF NOT EXISTS `users_pqr` (
   `id_pqr` int(11) NOT NULL AUTO_INCREMENT,
   `type_pqr` int(11) DEFAULT NULL,
   `subject` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -101,87 +103,80 @@ CREATE TABLE `users_pqr` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `users_pqr_ibfk_1` FOREIGN KEY (`type_pqr`) REFERENCES `type_pqr` (`id_type`),
   CONSTRAINT `users_pqr_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-/*Data for the table `users_pqr` */
+-- Volcando datos para la tabla prueba.users_pqr: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `users_pqr` DISABLE KEYS */;
+INSERT INTO `users_pqr` (`id_pqr`, `type_pqr`, `subject`, `state`, `id_user`, `date_create`, `date_limit`, `last_edit`) VALUES
+	(3, 1, 'Se daño la puerta', 'Nuevo', 2, '2021-02-22', '2021-03-01', 1),
+	(4, 1, 'se daño la puerta', 'Cerrado', 4, '2021-02-22', '2021-03-01', 1);
+/*!40000 ALTER TABLE `users_pqr` ENABLE KEYS */;
 
-/* Trigger structure for table `users` */
-
-DELIMITER $$
-
-USE `prueba`$$
-
-DROP TRIGGER /*!50032 IF EXISTS */ `after_pqr`$$
-
-CREATE
-    /*!50017 DEFINER = 'root'@'localhost' */
-    TRIGGER `after_pqr` AFTER INSERT ON `users_pqr` 
+-- Volcando estructura para disparador prueba.after_pqr
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `after_pqr` AFTER INSERT ON `users_pqr` 
     FOR EACH ROW BEGIN
   INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
   VALUES(NOW(),new.last_edit,CURRENT_USER(),'Insert','PQR');
-    END;
-$$
+    END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
-DELIMITER  ;
-
-/* Trigger structure for table `users_pqr` */
-
-DELIMITER $$
-
-USE `prueba`$$
-
-DROP TRIGGER /*!50032 IF EXISTS */ `after_pqr_delete`$$
-
-CREATE
-    /*!50017 DEFINER = 'root'@'localhost' */
-    TRIGGER `after_pqr_delete` AFTER DELETE ON `users_pqr` 
+-- Volcando estructura para disparador prueba.after_pqr_delete
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `after_pqr_delete` AFTER DELETE ON `users_pqr` 
     FOR EACH ROW BEGIN
   INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
   VALUES(NOW(),old.last_edit,CURRENT_USER(),'Delete','PQR');
-    END;
-$$
-
+    END//
 DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
-/* Trigger structure for table `users_pqr` */
-
-DELIMITER $$
-
-USE `prueba`$$
-
-DROP TRIGGER /*!50032 IF EXISTS */ `after_pqr_update`$$
-
-CREATE
-    /*!50017 DEFINER = 'root'@'localhost' */
-    TRIGGER `after_pqr_update` AFTER UPDATE ON `users_pqr` 
+-- Volcando estructura para disparador prueba.after_pqr_update
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `after_pqr_update` AFTER UPDATE ON `users_pqr` 
     FOR EACH ROW BEGIN
   INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
   VALUES(NOW(),new.last_edit,CURRENT_USER(),'Update','PQR');
-    END;
-$$
-
+    END//
 DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
-/* Trigger structure for table `users_pqr` */
-
-DELIMITER $$
-
-USE `prueba`$$
-
-DROP TRIGGER /*!50032 IF EXISTS */ `after_user`$$
-
-CREATE
-    /*!50017 DEFINER = 'root'@'localhost' */
-    TRIGGER `after_user` AFTER INSERT ON `users` 
+-- Volcando estructura para disparador prueba.after_user
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+DELIMITER //
+CREATE TRIGGER `after_user` AFTER INSERT ON `users` 
     FOR EACH ROW BEGIN
   INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
   VALUES(NOW(),new.name,CURRENT_USER(),'Insert','Users');
-    END;
-$$
-
+    END//
 DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- Volcando estructura para disparador prueba.after_user_delete
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='';
+DELIMITER //
+CREATE TRIGGER `after_user_delete` BEFORE DELETE ON `history` FOR EACH ROW BEGIN
+  INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
+  VALUES(NOW(),'1',CURRENT_USER(),'Delete','Users');
+    END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Volcando estructura para disparador prueba.after_user_update
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='';
+DELIMITER //
+CREATE TRIGGER `after_user_update` BEFORE UPDATE ON `history` FOR EACH ROW BEGIN
+  INSERT INTO history (history.`date`,history.`user_web`,history.`user_bd`,history.`action`,history.`module`)
+  VALUES(NOW(),'1',CURRENT_USER(),'Update','Users');
+    END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
